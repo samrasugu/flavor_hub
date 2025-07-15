@@ -20,8 +20,6 @@ class AppTheme {
         onSurfaceVariant: AppColors.onSurfaceVariant,
         error: AppColors.error,
         onError: Colors.white,
-        // background: AppColors.backgroundWhite,
-        // onBackground: AppColors.textCharcoal,
         outline: AppColors.borderLightGray,
       ),
 
@@ -49,6 +47,7 @@ class AppTheme {
       // app bar theme
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors.backgroundWhite,
+        surfaceTintColor: Colors.transparent,
         foregroundColor: AppColors.secondaryBrown,
         elevation: 0,
         centerTitle: true,
