@@ -80,7 +80,7 @@ class LoginScreen extends StatelessWidget {
               _buildOrContinueWithSection(),
               largeVerticalSizedBox,
 
-              _buildSignUpSection(),
+              _buildSignUpSection(context),
             ],
           ),
         ),
@@ -163,7 +163,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSignUpSection() {
+  Widget _buildSignUpSection(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
