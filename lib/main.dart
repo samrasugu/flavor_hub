@@ -1,8 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flavor_hub/screens/home.dart';
-import 'package:flavor_hub/screens/login.dart';
+import 'package:flavor_hub/screens/home_screen.dart';
+import 'package:flavor_hub/screens/login_screen.dart';
 import 'package:flavor_hub/screens/request_recipe.dart';
 import 'package:flavor_hub/screens/signup.dart';
+import 'package:flavor_hub/shared/themes/app_theme.dart';
 import 'package:flavor_hub/utils/server.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
       providers: [Provider(create: (_) => ApiService())],
       child: MaterialApp(
         title: tr('app_description'),
+        theme: AppTheme.lightTheme,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
