@@ -28,3 +28,5 @@ const String createAccountDescription =
 const String alreayHaveAnAccount = 'Already have an account?';
 const String emailString = 'Email';
 const String userNameString = 'Username';
+
+const String moreRecipesLikeThis = 'More Recipes Like This';

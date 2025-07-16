@@ -6,35 +6,39 @@ import 'package:flutter/material.dart';
 /// This AppBar allows for setting a title, actions, a leading widget,
 /// centering the title, background color, and elevation.
 class RecipeBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
+  final String? title;
   final List<Widget>? actions;
   final Widget? leading;
   final bool centerTitle;
   final Color? backgroundColor;
   final double elevation;
+  final IconThemeData? iconTheme;
 
   const RecipeBar({
-    required this.title,
+    this.title,
     this.actions,
     this.leading,
     this.centerTitle = true,
     this.backgroundColor,
     this.elevation = 4.0,
+    this.iconTheme,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title, style: AppTextStyles.header3),
+      title: Text(title ?? "", style: AppTextStyles.header3),
       actions: actions,
       leading: leading,
       centerTitle: false,
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundColor ?? Colors.white,
       elevation: elevation,
-      iconTheme: Theme.of(
-        context,
-      ).appBarTheme.iconTheme?.copyWith(color: Colors.black),
+      iconTheme:
+          iconTheme ??
+          Theme.of(
+            context,
+          ).appBarTheme.iconTheme?.copyWith(color: Colors.black),
     );
   }
 
