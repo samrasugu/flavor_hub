@@ -19,5 +19,14 @@ const String signInDescription =
     'Sign in to your account to access your recipes and favorites.';
 const String userNameEmail = 'Username / Email';
 const String password = 'Password';
+const String confirmPassword = 'Confirm Password';
 const String forgotPassword = 'Forgot Password?';
 const String dontHaveAnAccount = "Don't have an account?";
+const String createAccount = 'Create Account';
+const String createAccountDescription =
+    'Create an account to save your favorite recipes and share your own creations.';
+const String alreayHaveAnAccount = 'Already have an account?';
+const String emailString = 'Email';
+const String userNameString = 'Username';
+
+const String moreRecipesLikeThis = 'More Recipes Like This';

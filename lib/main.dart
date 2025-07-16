@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flavor_hub/screens/home_screen.dart';
 import 'package:flavor_hub/screens/login_screen.dart';
+import 'package:flavor_hub/screens/recipe_details_screen.dart';
 import 'package:flavor_hub/screens/request_recipe.dart';
 import 'package:flavor_hub/screens/signup.dart';
 import 'package:flavor_hub/shared/themes/app_theme.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
           '/request': (context) => RecipeRequestScreen(),
           '/login': (context) => LoginScreen(),
           '/register': (context) => RegisterScreen(),
+          '/recipeDetails': (context) => RecipeDetailsScreen(),
           '/home': (context) => HomeScreen(),
         },
       ),
