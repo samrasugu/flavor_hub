@@ -71,16 +71,21 @@ class HomeScreen extends StatelessWidget {
                 itemCount: 10,
                 clipBehavior: Clip.none,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 16.0),
-                    child: RecipeCard(
-                      title: 'Recipe $index',
-                      imageUrl:
-                          'https://images.pexels.com/photos/27969865/pexels-photo-27969865.jpeg',
-                      onTap: () {
-                        // Handle recipe tap
-                      },
-                      author: 'Chef $index',
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/recipeDetails');
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 16.0),
+                      child: RecipeCard(
+                        title: 'Recipe $index',
+                        imageUrl:
+                            'https://images.pexels.com/photos/27969865/pexels-photo-27969865.jpeg',
+                        onTap: () {
+                          // Handle recipe tap
+                        },
+                        author: 'Chef $index',
+                      ),
                     ),
                   );
                 },
