@@ -49,31 +49,6 @@ class FavoritesScreen extends StatelessWidget {
                       );
                     },
                   ),
-                  // Column(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //     children: [
-                  //       Icon(
-                  //         Icons.favorite_outline,
-                  //         size: 64,
-                  //         color: Colors.grey[400],
-                  //       ),
-                  //       const SizedBox(height: 16),
-                  //       Text(
-                  //         'No favorites yet',
-                  //         style: AppTextStyles.bodyMedium.copyWith(
-                  //           color: Colors.grey[600],
-                  //         ),
-                  //       ),
-                  //       const SizedBox(height: 8),
-                  //       Text(
-                  //         'Start exploring recipes and add them to your favorites',
-                  //         style: AppTextStyles.caption.copyWith(
-                  //           color: Colors.grey[500],
-                  //         ),
-                  //         textAlign: TextAlign.center,
-                  //       ),
-                  //     ],
-                  //   ),
                 ),
               ),
             ],

@@ -63,7 +63,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         width: 56,
         height: 56,
         decoration: BoxDecoration(
-          color: AppColors.primaryOrange, // Always use primary color
+          color: AppColors.primaryOrange,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
@@ -102,9 +102,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               children: [
                 _buildNavItem(Icons.home_outlined, Icons.home, 'Home', 0),
                 _buildNavItem(Icons.search_outlined, Icons.search, 'Search', 1),
-                const SizedBox(
-                  width: 40,
-                ), // Space for the floating action button
+                const SizedBox(width: 40),
                 _buildNavItem(
                   Icons.favorite_outline,
                   Icons.favorite,

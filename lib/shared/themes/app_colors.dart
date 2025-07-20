@@ -27,4 +27,11 @@ class AppColors {
   // shadow colors
   static const Color shadow = Color(0x1A000000);
   static const Color lightShadow = Color(0x0D000000);
+
+  static const Color facebookBlue = Color(0xFF1877F2);
+  static const Color twitterBlue = Color(0xFF1DA1F2);
+  static const Color instagramGradientStart = Color(0xFFF58529);
+  static const Color instagramGradientEnd = Color(0xFF833AB4);
+  static const Color linkedinBlue = Color(0xFF0077B5);
+  static const Color youtubeRed = Color(0xFFFF0000);
 }

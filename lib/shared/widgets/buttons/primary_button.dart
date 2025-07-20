@@ -10,11 +10,13 @@ class PrimaryButton extends StatelessWidget {
     this.onPressed,
     required this.text,
     required this.type,
+    this.icon,
   });
 
   final void Function()? onPressed;
   final String text;
   final ButtonType type;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +25,38 @@ class PrimaryButton extends StatelessWidget {
       fillColor: type == ButtonType.primary
           ? AppColors.primaryOrange
           : Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+        side: type == ButtonType.primary
+            ? BorderSide.none
+            : BorderSide(color: AppColors.primaryOrange, width: 1),
+      ),
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
       elevation: type == ButtonType.primary ? 2 : 0,
-      child: Text(
-        text,
-        style: AppTextStyles.buttonText.copyWith(
-          color: type == ButtonType.primary
-              ? Colors.white
-              : AppColors.primaryOrange,
-        ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (icon != null)
+            Padding(
+              padding: const EdgeInsets.only(right: 4.0),
+              child: Icon(
+                icon,
+                color: type == ButtonType.primary
+                    ? Colors.white
+                    : AppColors.primaryOrange,
+                size: 16,
+              ),
+            ),
+          Text(
+            text,
+            style: AppTextStyles.buttonText.copyWith(
+              color: type == ButtonType.primary
+                  ? Colors.white
+                  : AppColors.primaryOrange,
+            ),
+          ),
+        ],
       ),
     );
   }
