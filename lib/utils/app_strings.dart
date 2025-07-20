@@ -15,6 +15,7 @@ const String helloThere = 'Hello there 👋';
 // authentication strings
 const String signIn = 'Sign In';
 const String signUp = 'Sign Up';
+const String logOut = 'Log Out';
 const String signInDescription =
     'Sign in to your account to access your recipes and favorites.';
 const String userNameEmail = 'Username / Email';
@@ -30,3 +31,9 @@ const String emailString = 'Email';
 const String userNameString = 'Username';
 
 const String moreRecipesLikeThis = 'More Recipes Like This';
+
+const String description = 'Description';
+const String ingredients = 'Ingredients';
+const String moreInfo = 'More Info';
+const String socialMedia = 'Social Media';
+const String editProfile = 'Edit Profile';
