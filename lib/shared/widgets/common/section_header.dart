@@ -12,9 +12,11 @@ class SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
       children: [
         Text(title, style: AppTextStyles.header3),
         IconButton(
+          padding: EdgeInsets.zero,
           icon: Icon(
             Icons.arrow_forward_rounded,
             color: AppColors.primaryOrange,
