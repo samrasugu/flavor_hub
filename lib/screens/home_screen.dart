@@ -25,57 +25,27 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            HeroBannerCard(),
-            mediumVerticalSizedBox,
-            SectionHeader(title: recentRecipes, onMorePressed: () {}),
-            smallVerticalSizedBox,
-            SizedBox(
-              height: MediaQuery.of(context).size.width * 0.6,
-              child: ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                physics: const BouncingScrollPhysics(),
-                itemCount: 10,
-                clipBehavior: Clip.none,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 16.0),
-                    child: RecipeCard(
-                      title: 'Recipe $index',
-                      imageUrl:
-                          'https://images.pexels.com/photos/27969865/pexels-photo-27969865.jpeg',
-                      onTap: () {
-                        // Handle recipe tap
-                      },
-                      author: 'Chef $index',
-                    ),
-                  );
-                },
-              ),
-            ),
-            mediumVerticalSizedBox,
-            SectionHeader(title: yourRecipes, onMorePressed: () {}),
-            smallVerticalSizedBox,
-            SizedBox(
-              height: MediaQuery.of(context).size.width * 0.6,
-              child: ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                physics: const BouncingScrollPhysics(),
-                itemCount: 10,
-                clipBehavior: Clip.none,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/recipeDetails');
-                    },
-                    child: Padding(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              HeroBannerCard(),
+              mediumVerticalSizedBox,
+              SectionHeader(title: recentRecipes, onMorePressed: () {}),
+              smallVerticalSizedBox,
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.6,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: 10,
+                  clipBehavior: Clip.none,
+                  itemBuilder: (context, index) {
+                    return Padding(
                       padding: const EdgeInsets.only(right: 16.0),
                       child: RecipeCard(
                         title: 'Recipe $index',
@@ -86,12 +56,44 @@ class HomeScreen extends StatelessWidget {
                         },
                         author: 'Chef $index',
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+              mediumVerticalSizedBox,
+              SectionHeader(title: yourRecipes, onMorePressed: () {}),
+              smallVerticalSizedBox,
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.6,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: 10,
+                clipBehavior: Clip.none,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/recipeDetails');
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 16.0),
+                        child: RecipeCard(
+                          title: 'Recipe $index',
+                          imageUrl:
+                              'https://images.pexels.com/photos/27969865/pexels-photo-27969865.jpeg',
+                          onTap: () {
+                            // Handle recipe tap
+                          },
+                          author: 'Chef $index',
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
