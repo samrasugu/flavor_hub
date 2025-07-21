@@ -1,4 +1,6 @@
 import 'package:flavor_hub/components/app_bar.dart';
+import 'package:flavor_hub/data/mock_data.dart';
+import 'package:flavor_hub/models/recipe.dart';
 import 'package:flavor_hub/shared/themes/spaces.dart';
 import 'package:flavor_hub/shared/widgets/common/recipe_card.dart';
 import 'package:flavor_hub/shared/widgets/common/section_header.dart';
@@ -11,6 +13,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Recipe> recentRecipesData = MockData.recentRecipes;
+    final List<Recipe> yourRecipesData = MockData.yourRecipes;
+
     return Scaffold(
       appBar: RecipeBar(
         title: 'FlavorHub',
@@ -42,19 +47,23 @@ class HomeScreen extends StatelessWidget {
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
-                  itemCount: 10,
+                  itemCount: recentRecipesData.length,
                   clipBehavior: Clip.none,
                   itemBuilder: (context, index) {
+                    final recipe = recentRecipesData[index];
                     return Padding(
                       padding: const EdgeInsets.only(right: 16.0),
                       child: RecipeCard(
-                        title: 'Recipe $index',
-                        imageUrl:
-                            'https://images.pexels.com/photos/27969865/pexels-photo-27969865.jpeg',
+                        title: recipe.title,
+                        imageUrl: recipe.coverImageUrl,
                         onTap: () {
-                          // Handle recipe tap
+                          Navigator.pushNamed(
+                            context,
+                            '/recipeDetails',
+                            arguments: recipe,
+                          );
                         },
-                        author: 'Chef $index',
+                        author: MockData.getChefNameById(recipe.id),
                       ),
                     );
                   },
@@ -69,23 +78,31 @@ class HomeScreen extends StatelessWidget {
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
-                  itemCount: 10,
-                clipBehavior: Clip.none,
+                  itemCount: yourRecipesData.length,
+                  clipBehavior: Clip.none,
                   itemBuilder: (context, index) {
+                    final recipe = yourRecipesData[index];
                     return GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/recipeDetails');
+                        Navigator.pushNamed(
+                          context,
+                          '/recipeDetails',
+                          arguments: recipe,
+                        );
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(right: 16.0),
                         child: RecipeCard(
-                          title: 'Recipe $index',
-                          imageUrl:
-                              'https://images.pexels.com/photos/27969865/pexels-photo-27969865.jpeg',
+                          title: recipe.title,
+                          imageUrl: recipe.coverImageUrl,
                           onTap: () {
-                            // Handle recipe tap
+                            Navigator.pushNamed(
+                              context,
+                              '/recipeDetails',
+                              arguments: recipe,
+                            );
                           },
-                          author: 'Chef $index',
+                          author: MockData.getChefNameById(recipe.id),
                         ),
                       ),
                     );
