@@ -106,7 +106,7 @@ class LoginScreenState extends State<LoginScreen> {
                   );
                 },
                 child: Text(
-                  tr("dont_have_account"),
+                  tr('dont_have_account'),
                   style: const TextStyle(fontSize: 16),
                 ),
               ),

@@ -168,7 +168,7 @@ class LoginScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "$dontHaveAnAccount ",
+          '$dontHaveAnAccount ',
           style: AppTextStyles.bodyMedium.copyWith(
             color: AppColors.textMediumGray,
           ),

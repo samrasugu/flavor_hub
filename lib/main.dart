@@ -16,7 +16,7 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
 
   // Load environment variables
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: '.env');
   runApp(
     EasyLocalization(
       supportedLocales: const [

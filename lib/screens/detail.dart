@@ -92,7 +92,7 @@ class RecipeDetailPageState extends State<RecipeDetailPage> {
           increment: true,
         );
       } catch (e) {
-        log("Error posting comment: $e");
+        log('Error posting comment: $e');
         _showError('Error posting comment: $e');
       }
     }
@@ -103,7 +103,7 @@ class RecipeDetailPageState extends State<RecipeDetailPage> {
       await ApiService().likeRecipe(widget.recipe.id);
       setState(() => _likes++);
     } catch (e) {
-      log("Error liking recipe: $e");
+      log('Error liking recipe: $e');
       _showError('Error liking recipe: $e');
     }
   }

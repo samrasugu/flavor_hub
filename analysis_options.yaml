@@ -22,7 +22,28 @@ linter:
   # producing the lint.
   rules:
     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
+
+analyzer:
+  # The following section configures the analyzer to ignore certain files or
+  # directories. This is useful for excluding generated files or files that
+  # should not be analyzed.
+  exclude:
+    - build/
+    - .dart_tool/
+    - pubspec.lock
+    - test/**
+    - "lib/generated_plugin_*.dart"
+    - "bin/cache/**"
+    - "lib/**/*.g.dart"
+    - "lib/**/*.freezed.dart"
+
+  # The following section configures the analyzer to report errors and warnings
+  # for specific Dart language features.
+  errors:
+    invalid_annotation_target: true
+    # Uncomment the following line to treat all warnings as errors.
+    # all: error

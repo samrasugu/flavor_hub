@@ -129,7 +129,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                   );
                 },
                 child: Text(
-                  tr("have_account"),
+                  tr('have_account'),
                   style: const TextStyle(fontSize: 16),
                 ),
               ),

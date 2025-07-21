@@ -20,13 +20,13 @@ class ApiService {
   // Helper method to get headers with optional JWT token
   Future<Map<String, String>> _getHeaders({bool includeJwt = false}) async {
     final headers = {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer $accessToken",
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken',
     };
     if (includeJwt) {
       final jwt = await getJwt();
       if (jwt != null) {
-        headers["Authorization"] = "Bearer $jwt";
+        headers['Authorization'] = 'Bearer $jwt';
       }
     }
     return headers;
@@ -76,14 +76,14 @@ class ApiService {
         url,
         headers: await _getHeaders(),
         body: json.encode({
-          "username": username,
-          "email": email,
-          "password": password,
+          'username': username,
+          'email': email,
+          'password': password,
         }),
       );
       return response;
     } catch (e) {
-      log("Error registering user: $e");
+      log('Error registering user: $e');
       rethrow;
     }
   }
@@ -95,7 +95,7 @@ class ApiService {
       final response = await http.post(
         url,
         headers: await _getHeaders(),
-        body: json.encode({"identifier": email, "password": password}),
+        body: json.encode({'identifier': email, 'password': password}),
       );
 
       if (response.statusCode == 200) {
@@ -106,7 +106,7 @@ class ApiService {
 
       return response;
     } catch (e) {
-      log("Error logging in user: $e");
+      log('Error logging in user: $e');
       rethrow;
     }
   }
@@ -163,10 +163,10 @@ class ApiService {
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
         if (kDebugMode) {
-          print("Parsed JSON: $jsonData");
+          print('Parsed JSON: $jsonData');
         }
 
-        if (jsonData["data"] != null) {
+        if (jsonData['data'] != null) {
           List<dynamic> data = jsonData['data'];
           return data.map<Comment>((json) {
             if (json == null) {
@@ -214,10 +214,10 @@ class ApiService {
         url,
         headers: await _getHeaders(),
         body: json.encode({
-          "data": {
-            "content": content,
-            "recipe": recipeId,
-            "comment_author": authorId,
+          'data': {
+            'content': content,
+            'recipe': recipeId,
+            'comment_author': authorId,
           },
         }),
       );
@@ -233,7 +233,7 @@ class ApiService {
         throw Exception('Failed to post comment');
       }
     } catch (e) {
-      log("Error posting comment: $e");
+      log('Error posting comment: $e');
       rethrow;
     }
   }
@@ -271,7 +271,7 @@ class ApiService {
           recipeUrl,
           headers: await _getHeaders(),
           body: json.encode({
-            "data": {"comments": updatedComments},
+            'data': {'comments': updatedComments},
           }),
         );
 
@@ -287,7 +287,7 @@ class ApiService {
         throw Exception('Failed to fetch recipe data');
       }
     } catch (e) {
-      log("Error updating comment count: $e");
+      log('Error updating comment count: $e');
       throw Exception('Error updating comment count: $e');
     }
   }
@@ -311,7 +311,7 @@ class ApiService {
           recipeUrl,
           headers: await _getHeaders(),
           body: json.encode({
-            "data": {"likes": updatedLikes},
+            'data': {'likes': updatedLikes},
           }),
         );
 
@@ -322,7 +322,7 @@ class ApiService {
         throw Exception('Failed to fetch recipe data');
       }
     } catch (e) {
-      log("Error liking recipe: $e");
+      log('Error liking recipe: $e');
       throw Exception('Error liking recipe: $e');
     }
   }
@@ -348,7 +348,7 @@ class ApiService {
       }
     } catch (e) {
       if (kDebugMode) {
-        print("Error submitting recipe request: $e");
+        print('Error submitting recipe request: $e');
       }
       rethrow;
     }
@@ -376,7 +376,7 @@ class ApiService {
       }
     } catch (e) {
       if (kDebugMode) {
-        print("Error fetching user requested recipes: $e");
+        print('Error fetching user requested recipes: $e');
       }
       rethrow;
     }

@@ -28,7 +28,7 @@ class RecipeBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title ?? "", style: AppTextStyles.header3),
+      title: Text(title ?? '', style: AppTextStyles.header3),
       actions: actions,
       leading: leading,
       centerTitle: false,

@@ -87,7 +87,7 @@ class SignupScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "$alreayHaveAnAccount ",
+          '$alreayHaveAnAccount ',
           style: AppTextStyles.bodyMedium.copyWith(
             color: AppColors.textMediumGray,
           ),
