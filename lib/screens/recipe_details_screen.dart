@@ -1,4 +1,5 @@
 import 'package:flavor_hub/components/app_bar.dart';
+import 'package:flavor_hub/models/recipe.dart';
 import 'package:flavor_hub/shared/themes/spaces.dart';
 import 'package:flavor_hub/shared/widgets/buttons/primary_button.dart';
 import 'package:flavor_hub/shared/widgets/common/recipe_card.dart';
@@ -8,7 +9,9 @@ import 'package:flavor_hub/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class RecipeDetailsScreen extends StatelessWidget {
-  const RecipeDetailsScreen({super.key});
+  const RecipeDetailsScreen({super.key, this.recipe});
+
+  final Recipe? recipe;
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +59,31 @@ class RecipeDetailsScreen extends StatelessWidget {
               child: Stack(
                 children: [
                   Image.network(
-                    'https://images.pexels.com/photos/27969865/pexels-photo-27969865.jpeg',
+                    recipe?.coverImageUrl ?? '',
                     fit: BoxFit.cover,
                     height: MediaQuery.of(context).size.width * 0.8,
                     width: double.infinity,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        height: MediaQuery.of(context).size.width * 0.8,
+                        width: double.infinity,
+                        color: Colors.grey[300],
+                        child: const Icon(
+                          Icons.image_not_supported,
+                          size: 50,
+                          color: Colors.grey,
+                        ),
+                      );
+                    },
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Container(
+                        height: MediaQuery.of(context).size.width * 0.8,
+                        width: double.infinity,
+                        color: Colors.grey[200],
+                        child: const Center(child: CircularProgressIndicator()),
+                      );
+                    },
                   ),
                   // overlay gradient
                   Container(
@@ -82,7 +106,7 @@ class RecipeDetailsScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                'Delicious Recipe Title',
+                recipe?.title ?? 'Recipe Title',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
             ),
@@ -96,7 +120,7 @@ class RecipeDetailsScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         backgroundImage: NetworkImage(
                           'https://images.pexels.com/photos/27969865/pexels-photo-27969865.jpeg',
                         ),
@@ -189,7 +213,8 @@ class RecipeDetailsScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
-                '1. Ingredient One\n2. Ingredient Two\n3. Ingredient Three',
+                recipe?.ingredients ??
+                    '1. Ingredient One\n2. Ingredient Two\n3. Ingredient Three',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
