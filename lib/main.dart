@@ -1,4 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flavor_hub/firebase_options.dart';
 import 'package:flavor_hub/screens/login_screen.dart';
 import 'package:flavor_hub/screens/main_navigation_screen.dart';
 import 'package:flavor_hub/screens/recipe_details_screen.dart';
@@ -17,6 +19,10 @@ Future<void> main() async {
 
   // Load environment variables
   await dotenv.load(fileName: ".env");
+
+  // Initialize Firebase with secure options
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(
     EasyLocalization(
       supportedLocales: const [
@@ -39,7 +45,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [Provider(create: (_) => ApiService())],
       child: MaterialApp(
-        title: tr('app_description'),
+        title: dotenv.env['APP_NAME'] ?? 'Flavor Hub',
         theme: AppTheme.lightTheme,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,

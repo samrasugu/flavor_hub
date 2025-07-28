@@ -82,9 +82,18 @@ lib/generated_plugin_registrant.dart
 *.jks
 *.keystore
 
+# Environment files
+.env
+.env.local
+.env.production
+.env.staging
+
 # Firebase
 google-services.json
+google-credentials.json
 GoogleService-Info.plist
+
+# FlutterFire CLI generated file
 firebase_options.dart
 
 # Localization
