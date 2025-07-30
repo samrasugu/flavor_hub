@@ -39,15 +39,19 @@ class RecipeRequestScreenState extends State<RecipeRequestScreen> {
       );
       try {
         await _apiService.submitRecipeRequest(request);
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(tr('request_successful'))));
-        _titleController.clear();
-        _descriptionController.clear();
+        if (mounted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(tr('request_successful'))));
+          _titleController.clear();
+          _descriptionController.clear();
+        }
       } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to submit recipe request: $e')),
-        );
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Failed to submit recipe request: $e')),
+          );
+        }
       }
     }
   }

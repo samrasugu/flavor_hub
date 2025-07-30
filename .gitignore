@@ -93,9 +93,6 @@ google-services.json
 google-credentials.json
 GoogleService-Info.plist
 
-# FlutterFire CLI generated file
-firebase_options.dart
-
 # Localization
 **/lib/l10n/app_localizations.dart
 **/lib/l10n/app_localizations_*.dart
@@ -143,3 +140,7 @@ coverage/
 secrets.dart
 api_keys.dart
 config/secrets.json
+
+# Local development files
+.actrc
+.secrets

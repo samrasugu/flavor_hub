@@ -47,7 +47,9 @@ class HomeScreenState extends State<HomeScreen> {
       _isAuthenticated = false;
       _username = null;
     });
-    Navigator.pushReplacementNamed(context, '/login');
+    if (mounted) {
+      Navigator.pushReplacementNamed(context, '/login');
+    }
   }
 
   String truncateWithEllipsis(int cutoff, String myString) {

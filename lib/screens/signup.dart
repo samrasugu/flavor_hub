@@ -45,27 +45,31 @@ class RegisterScreenState extends State<RegisterScreen> {
 
       if (response.statusCode == 200) {
         // Navigate to the login screen after successful registration
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => LoginScreen()),
-        );
+        if (mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => LoginScreen()),
+          );
+        }
       } else {
         // Handle error
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text(tr('register_fail')),
-            content: Text(tr('register_error')),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text(tr('ok')),
-              ),
-            ],
-          ),
-        );
+        if (mounted) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text(tr('register_fail')),
+              content: Text(tr('register_error')),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(tr('ok')),
+                ),
+              ],
+            ),
+          );
+        }
       }
     }
   }

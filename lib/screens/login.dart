@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flavor_hub/screens/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../utils/server.dart';
-import 'signUp.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -40,23 +40,27 @@ class LoginScreenState extends State<LoginScreen> {
       });
 
       if (response.statusCode == 200) {
-        Navigator.pushReplacementNamed(context, '/home');
+        if (mounted) {
+          Navigator.pushReplacementNamed(context, '/home');
+        }
       } else {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text(tr('login_failed')),
-            content: Text(tr('invalid_email_password')),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text(tr('ok')),
-              ),
-            ],
-          ),
-        );
+        if (mounted) {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text(tr('login_failed')),
+                content: Text(tr('invalid_email_password')),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(tr('ok')),
+                ),
+              ],
+            ),
+          );
+        }
       }
     }
   }

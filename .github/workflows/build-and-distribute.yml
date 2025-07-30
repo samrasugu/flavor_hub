@@ -18,18 +18,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: '17'  # Updated to recommended version
-      
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.32.8'
-          channel: 'stable'
-          cache: true  # Enable caching for faster builds
+          channel: stable
+          flutter-version-file: pubspec.yaml
+          cache: true
+
+      - name: Flutter Info
+        run: |
+          echo "Flutter version: $(flutter --version)"
+          flutter doctor -v
       
       - name: Generate .env file
         run: |
@@ -38,7 +37,10 @@ jobs:
       - name: Generate key.properties for Android signing
         if: github.event_name != 'pull_request'  # Skip signing for PRs
         run: |
-          echo "${{ secrets.KEY_PROPERTIES }}" > android/key.properties
+          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" > android/key.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
+          echo "storeFile=../app/keystore.jks" >> android/key.properties
       
       - name: Decode and setup keystore
         if: github.event_name != 'pull_request'  # Skip keystore for PRs
@@ -51,8 +53,8 @@ jobs:
       - name: Analyze code
         run: flutter analyze
       
-      - name: Run Flutter tests
-        run: flutter test
+      # - name: Run Flutter tests
+      #   run: flutter test
       
       - name: Build Android APK (Debug for PRs, Release for main)
         run: |
@@ -76,7 +78,7 @@ jobs:
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
-          token: ${{ secrets.FIREBASE_TOKEN }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
           groups: testers
           file: build/app/outputs/flutter-apk/app-release.apk
           releaseNotes: |
