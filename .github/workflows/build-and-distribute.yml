@@ -34,12 +34,20 @@ jobs:
           echo "${{ secrets.ENV_FILE }}" > .env
       
       - name: Generate key.properties for Android signing
-        if: github.event_name != 'pull_request'  # Skip signing for PRs
         run: |
-          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" > android/key.properties
-          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
-          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
-          echo "storeFile=../app/keystore.jks" >> android/key.properties
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            # Create dummy properties for debug builds (PRs)
+            echo "storePassword=android" > android/key.properties
+            echo "keyPassword=android" >> android/key.properties  
+            echo "keyAlias=androiddebugkey" >> android/key.properties
+            echo "storeFile=debug.keystore" >> android/key.properties
+          else
+            # Create real properties for release builds (main branch)
+            echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" > android/key.properties
+            echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
+            echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
+            echo "storeFile=../app/keystore.jks" >> android/key.properties
+          fi
       
       - name: Decode and setup keystore
         if: github.event_name != 'pull_request'  # Skip keystore for PRs
