@@ -43,7 +43,9 @@ class CustomDrawerState extends State<CustomDrawer> {
       _username = null;
       _userId = null;
     });
-    Navigator.pushReplacementNamed(context, '/login');
+    if (mounted) {
+      Navigator.pushReplacementNamed(context, '/login');
+    }
   }
 
   void _changeLanguage(Locale locale) {

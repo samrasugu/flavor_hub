@@ -114,7 +114,9 @@ class RecipeDetailPageState extends State<RecipeDetailPage> {
       _isAuthenticated = false;
       _userId = null;
     });
-    Navigator.pushReplacementNamed(context, '/login');
+    if (mounted) {
+      Navigator.pushReplacementNamed(context, '/login');
+    }
   }
 
   @override

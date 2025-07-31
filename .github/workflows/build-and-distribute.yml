@@ -1,0 +1,147 @@
+name: Build and Distribute
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # Allow PR builds for testing, but restrict distribution
+    if: github.repository == 'samrasugu/flavor_hub'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.32.5'
+          cache: true
+
+      - name: Flutter Info
+        run: |
+          echo "Flutter version: $(flutter --version)"
+          flutter doctor -v
+      
+      - name: Generate .env file
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
+      
+      - name: Generate key.properties for Android signing
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            # Create dummy properties for debug builds (PRs)
+            echo "storePassword=android" > android/key.properties
+            echo "keyPassword=android" >> android/key.properties  
+            echo "keyAlias=androiddebugkey" >> android/key.properties
+            echo "storeFile=debug.keystore" >> android/key.properties
+          else
+            # Create real properties for release builds (main branch)
+            echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" > android/key.properties
+            echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
+            echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
+            echo "storeFile=../app/keystore.jks" >> android/key.properties
+          fi
+      
+      - name: Decode and setup keystore
+        if: github.event_name != 'pull_request'  # Skip keystore for PRs
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
+
+      - name: Generate google-services.json for Android
+        run: |
+          echo "${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}" | base64 --decode > android/app/google-services.json
+    
+          # validate the JSON was created correctly
+          if [ ! -s android/app/google-services.json ]; then
+            echo "Error: google-services.json was not created or is empty"
+            exit 1
+          fi
+          
+          # validate JSON format
+          python3 -m json.tool android/app/google-services.json > /dev/null || {
+            echo "Error: google-services.json is not valid JSON"
+            cat android/app/google-services.json
+            exit 1
+          }
+      
+      - name: Install Flutter dependencies
+        run: flutter pub get
+      
+      - name: Analyze code
+        run: flutter analyze
+      
+      # - name: Run Flutter tests
+      #   run: flutter test
+      
+      - name: Build Android APK (Debug for PRs, Release for main)
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            flutter build apk --debug
+          else
+            flutter build apk --release
+          fi
+      
+      - name: Build Android App Bundle (Release)
+        if: github.event_name != 'pull_request'  # Only for main branch
+        run: flutter build appbundle --release
+      
+      - name: Build iOS (if on macOS runner)
+        if: runner.os == 'macOS'
+        run: flutter build ios --release --no-codesign
+      
+      # Only distribute on main branch pushes or manual dispatch
+      - name: Upload Android APK to Firebase App Distribution
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+          groups: testers
+          file: build/app/outputs/flutter-apk/app-release.apk
+          releaseNotes: |
+            🍳 Flavor Hub - Android Release
+            
+            Commit: ${{ github.sha }}
+            Branch: ${{ github.ref_name }}
+            Build: #${{ github.run_number }}
+            Triggered by: ${{ github.event_name }}
+            
+            Latest features and improvements ready for testing!
+      
+      - name: Upload Android APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk-${{ github.run_number }}
+          path: build/app/outputs/flutter-apk/app-*.apk
+          retention-days: 30
+      
+      - name: Upload Android App Bundle artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-aab-${{ github.run_number }}
+          path: build/app/outputs/bundle/release/app-release.aab
+          retention-days: 30
+      
+      - name: Upload iOS build artifacts (if built)
+        if: runner.os == 'macOS'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build-${{ github.run_number }}
+          path: build/ios/ipa/*.ipa
+          retention-days: 30
+      
+      - name: Cleanup sensitive files
+        if: always()
+        run: |
+          rm -f android/app/keystore.jks
+          rm -f android/key.properties
+          rm -f android/app/google-services.json
+          rm -f .env
