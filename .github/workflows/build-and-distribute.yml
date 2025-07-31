@@ -53,6 +53,10 @@ jobs:
         if: github.event_name != 'pull_request'  # Skip keystore for PRs
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
+
+      - name: Generate google-services.json for Android
+        run: |
+          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > android/app/google-services.json
       
       - name: Install Flutter dependencies
         run: flutter pub get
@@ -126,4 +130,5 @@ jobs:
         run: |
           rm -f android/app/keystore.jks
           rm -f android/key.properties
+          rm -f android/app/google-services.json
           rm -f .env
