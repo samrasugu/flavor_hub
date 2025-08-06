@@ -28,8 +28,9 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  sentry_flutter: ^9.5.0
   cupertino_icons: ^1.0.8
-  easy_localization: ^3.0.7+1
+  easy_localization: ^3.0.8
   firebase_core: ^4.0.0
   flutter:
     sdk: flutter
@@ -38,9 +39,9 @@ dependencies:
   font_awesome_flutter: ^10.8.0
   http: ^1.4.0
   provider: ^6.1.5
-  shared_preferences: ^2.5.3
 
 dev_dependencies:
+  sentry_dart_plugin: ^3.1.1
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
@@ -86,3 +87,9 @@ flutter:
           weight: 700
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+sentry:
+  upload_debug_symbols: true
+  upload_source_maps: true
+  project: flutter
+  org: sam-rasugu
