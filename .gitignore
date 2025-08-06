@@ -79,6 +79,7 @@ lib/generated_plugin_registrant.dart
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
 **/android/key.properties
+**/android/build/
 *.jks
 *.keystore
 
@@ -144,3 +145,6 @@ config/secrets.json
 # Local development files
 .actrc
 .secrets
+
+sentry.properties
+sentry-wizard
