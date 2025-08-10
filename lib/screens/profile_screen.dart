@@ -38,9 +38,9 @@ class _ProfileScreenState extends State<ProfileScreen>
         title: 'Profile',
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings, color: Colors.black),
+            icon: const Icon(Icons.settings),
             onPressed: () {
-              // TODO:: navigate to settings screen
+              Navigator.pushNamed(context, '/settings');
             },
           ),
         ],
@@ -70,10 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                           Text(
                             'Chef Name',
                             style: Theme.of(context).textTheme.bodyLarge
-                                ?.copyWith(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                ?.copyWith(fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 4),
                           Text(
@@ -395,7 +392,8 @@ class _ProfileScreenState extends State<ProfileScreen>
           Text(
             content,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: contentColor ?? Colors.black,
+              color:
+                  contentColor ?? Theme.of(context).textTheme.bodyMedium?.color,
             ),
           ),
         ],

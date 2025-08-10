@@ -1,8 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flavor_hub/providers/theme_provider.dart';
 import 'package:flavor_hub/screens/login_screen.dart';
 import 'package:flavor_hub/screens/main_navigation_screen.dart';
 import 'package:flavor_hub/screens/recipe_details_screen.dart';
+import 'package:flavor_hub/screens/set_theme_screen.dart';
+import 'package:flavor_hub/screens/settings_screen.dart';
 import 'package:flavor_hub/screens/signup_screen.dart';
 import 'package:flavor_hub/shared/themes/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -57,23 +60,30 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        // providers here
-      ],
-      child: MaterialApp(
-        title: dotenv.env['APP_NAME'] ?? 'Flavor Hub',
-        theme: AppTheme.lightTheme,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        initialRoute: '/main',
-        routes: {
-          '/main': (context) => const MainNavigationScreen(),
-          '/login': (context) => LoginScreen(),
-          '/register': (context) => SignupScreen(),
-          '/recipeDetails': (context) => RecipeDetailsScreen(),
-          '/home': (context) => MainNavigationScreen(),
-        },
+      providers: [ChangeNotifierProvider(create: (_) => ThemeProvider()..load())],
+      child: Builder(
+        builder: (context) {
+          final themeMode = context.watch<ThemeProvider>().themeMode;
+          return MaterialApp(
+            title: dotenv.env['APP_NAME'] ?? 'Flavor Hub',
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: themeMode,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            initialRoute: '/main',
+            routes: {
+              '/main': (context) => const MainNavigationScreen(),
+              '/login': (context) => LoginScreen(),
+              '/register': (context) => SignupScreen(),
+              '/recipeDetails': (context) => RecipeDetailsScreen(),
+              '/home': (context) => MainNavigationScreen(),
+              '/settings': (context) => SettingsScreen(),
+              '/setTheme': (context) => SetThemeScreen(),
+            },
+          );
+        }
       ),
     );
   }
