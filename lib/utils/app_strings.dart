@@ -37,3 +37,19 @@ const String ingredients = 'Ingredients';
 const String moreInfo = 'More Info';
 const String socialMedia = 'Social Media';
 const String editProfile = 'Edit Profile';
+const String settings = 'Settings';
+const String personalInfo = 'Personal Info';
+const String securityString = 'Security';
+const String languageString = 'Language';
+String modeString(String themeMode) {
+  switch (themeMode) {
+    case 'dark':
+      return 'Dark Mode';
+    case 'light':
+      return 'Light Mode';
+    case 'system':
+      return 'System Mode';
+    default:
+      return 'Mode';
+  }
+}

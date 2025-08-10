@@ -1,4 +1,3 @@
-import 'package:flavor_hub/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AppTextStyles {
@@ -13,7 +12,6 @@ class AppTextStyles {
     fontFamily: primaryFont,
     fontSize: 24,
     fontWeight: FontWeight.bold,
-    color: AppColors.textCharcoal,
     letterSpacing: -0.5,
   );
 
@@ -21,7 +19,6 @@ class AppTextStyles {
     fontFamily: primaryFont,
     fontSize: 20,
     fontWeight: FontWeight.bold,
-    color: AppColors.textCharcoal,
     letterSpacing: -0.25,
   );
 
@@ -29,7 +26,6 @@ class AppTextStyles {
     fontFamily: primaryFont,
     fontSize: 18,
     fontWeight: FontWeight.bold,
-    color: AppColors.textCharcoal,
     letterSpacing: 0,
   );
 
@@ -38,7 +34,6 @@ class AppTextStyles {
     fontFamily: primaryFont,
     fontSize: 16,
     fontWeight: FontWeight.normal,
-    color: AppColors.textCharcoal,
     height: 1.5,
   );
 
@@ -46,7 +41,6 @@ class AppTextStyles {
     fontFamily: primaryFont,
     fontSize: 14,
     fontWeight: FontWeight.normal,
-    color: AppColors.textCharcoal,
     height: 1.4,
   );
 
@@ -55,7 +49,6 @@ class AppTextStyles {
     fontFamily: secondaryFont,
     fontSize: 16,
     fontWeight: FontWeight.normal,
-    color: AppColors.textCharcoal,
     height: 1.6,
   );
 
@@ -63,7 +56,6 @@ class AppTextStyles {
     fontFamily: secondaryFont,
     fontSize: 15,
     fontWeight: FontWeight.normal,
-    color: AppColors.textCharcoal,
     height: 1.7,
   );
 
@@ -72,7 +64,6 @@ class AppTextStyles {
     fontFamily: primaryFont,
     fontSize: 12,
     fontWeight: FontWeight.w500,
-    color: AppColors.textMediumGray,
     letterSpacing: 0.4,
   );
 
@@ -89,6 +80,5 @@ class AppTextStyles {
     fontFamily: primaryFont,
     fontSize: 14,
     fontWeight: FontWeight.w500,
-    color: AppColors.secondaryBrown,
   );
 }

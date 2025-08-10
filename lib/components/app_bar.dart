@@ -27,18 +27,20 @@ class RecipeBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final backGroundColor =
+        backgroundColor ?? Theme.of(context).appBarTheme.backgroundColor;
     return AppBar(
       title: Text(title ?? "", style: AppTextStyles.header3),
       actions: actions,
       leading: leading,
       centerTitle: false,
-      backgroundColor: backgroundColor ?? Colors.white,
+      backgroundColor: backGroundColor,
       elevation: elevation,
       iconTheme:
           iconTheme ??
-          Theme.of(
-            context,
-          ).appBarTheme.iconTheme?.copyWith(color: Colors.black),
+          Theme.of(context).appBarTheme.iconTheme ??
+          const IconThemeData(color: Colors.white),
+      actionsIconTheme: Theme.of(context).appBarTheme.actionsIconTheme,
     );
   }
 

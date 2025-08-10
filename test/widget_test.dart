@@ -7,18 +7,32 @@
 
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flavor_hub/main.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   testWidgets('App displays name', (WidgetTester tester) async {
     // load environment variables
     dotenv.testLoad(fileInput: File('.env').readAsStringSync());
 
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await EasyLocalization.ensureInitialized();
+
+    await tester.pumpWidget(
+      EasyLocalization(
+        supportedLocales: const [Locale('en')],
+        path: 'assets/translations',
+        fallbackLocale: const Locale('en'),
+        child: const MyApp(),
+      ),
+    );
+
+    await tester.pumpAndSettle();
 
     // verify that the app name is displayed
     expect(find.text('FlavorHub'), findsOneWidget);

@@ -18,6 +18,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: RecipeBar(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         title: 'FlavorHub',
         actions: <Widget>[
           IconButton(
